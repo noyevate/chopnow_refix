@@ -1,4 +1,3 @@
-
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/custom_button.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
@@ -6,6 +5,8 @@ import 'package:chopnow/controllers/onboarding_controller.dart';
 import 'package:chopnow/enty_point.dart';
 import 'package:chopnow/views/auth/create_account/create_account_page.dart';
 import 'package:chopnow/views/auth/login/login_page_view.dart';
+import 'package:chopnow/views/profile/widget/privacy_policies.dart';
+import 'package:chopnow/views/profile/widget/terms_of_use.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -145,7 +146,11 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => TermsOfUse(),
+                            transition: Transition.fadeIn,
+                            duration: const Duration(milliseconds: 700));
+                      },
                       child: ReuseableText(
                         title: "Terms of Use ",
                         style: TextStyle(
@@ -164,7 +169,9 @@ class OnboardingCompletionBottomSheet extends StatelessWidget {
                       //textAlign: TextAlign.center,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                         Get.to(() => PrivacyPolicy(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                      },
                       child: ReuseableText(
                         title: "Privacy Policies",
                         style: TextStyle(

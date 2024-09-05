@@ -112,17 +112,20 @@ class OtpController extends GetxController {
         print(response.body);
         if (response.statusCode == 201) {
           OtpSucessModel responseData = otpSucessModelFromJson(response.body);
+          print("otp-response Statuscode ${response.statusCode}");
 
           String userId = responseData.id;
           var user = jsonEncode(responseData);
 
           // Save data to GetStorage
           box.write(userId, user);
-          box.write('firstName', responseData.firstName);
-          box.write('lastName', responseData.lastName);
+          box.write('first_name', responseData.firstName);
+          box.write('userId', responseData.id);
+          box.write("verification1", responseData.verification);
+          box.write('last_name', responseData.lastName);
           box.write('email', responseData.email);
           box.write('phone', responseData.phone);
-          box.write('token', responseData.userToken);
+          box.write('token', responseData.token);
           box.write('verification', responseData.phoneVerification);
 
           setLoading = false;

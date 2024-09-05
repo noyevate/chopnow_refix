@@ -113,7 +113,7 @@ class NewTasteWidget extends StatelessWidget {
                       runSpacing: 5.h,
                       children: [
                         ReuseableText(
-                          title: food.restaurant,
+                          title: food.title,
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w400,
@@ -135,7 +135,7 @@ class NewTasteWidget extends StatelessWidget {
                           height: 10.w,
                         ),
                         ReuseableText(
-                          title: "20km",
+                          title: "NGN ${food.price.toString()}",
                           style: TextStyle(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w400,

@@ -1,4 +1,3 @@
-
 import 'package:chopnow/common/capitalized_text.dart';
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
@@ -16,10 +15,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
 
-void showCustomBottomSheet(
-    BuildContext context, Widget content, double height) {
+void showCustomBottomSheet(BuildContext context, Widget content, double height) {
   showModalBottomSheet(
-    backgroundColor: Tcolor.White,
+     backgroundColor: Tcolor.White,
     context: context,
     enableDrag: false,
     isDismissible: false,
@@ -31,13 +29,12 @@ void showCustomBottomSheet(
       constraints: BoxConstraints(
         maxHeight: height,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      // padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
       child: SingleChildScrollView(
         child: content,
       ),
     ),
   );
-  // Pass the arguments to Get
 }
 
 String truncateWithEllipsis(String input, {int maxLength = 20}) {
@@ -85,7 +82,7 @@ class DeliveryInformationWidget extends StatelessWidget {
                 showCustomBottomSheet(
                   context,
                   const ContactInformation(),
-                  1400.h, // Set the height for this bottom sheet
+                  1200.h, // Set the height for this bottom sheet
                 );
               },
               child: IconNameIcon(
@@ -96,9 +93,6 @@ class DeliveryInformationWidget extends StatelessWidget {
                 icon2: HeroiconsOutline.pencil,
               ),
             ),
-
-            
-
           ),
           Obx(
             () => TeztWidget(
@@ -109,20 +103,17 @@ class DeliveryInformationWidget extends StatelessWidget {
           SizedBox(height: 30.h),
           GestureDetector(
             onTap: () {
-                // showCustomBottomSheet(
-                //   context,
-                //   const Addresses(),
-                //   1400.h, // Set the height for this bottom sheet
-                // );
-                Get.to(() => DeliverAddress());
-              },
-            child:  IconNameIconAddress(
-              name: truncateWithEllipsis(address),
+              Get.to(() => DeliverAddress());
+            },
+            child: Obx(() => IconNameIconAddress(
+              name: truncateWithEllipsis(addressController.selectedAddress.value.isNotEmpty
+                  ? addressController.selectedAddress.value
+                  : address),
               icon: HeroiconsOutline.mapPin,
               icon2: HeroiconsOutline.pencil,
-            ),
+            ),)
           ),
-           Obx(
+          Obx(
             () => TeztWidget(
               text: addressController.selectedAddress.value.isNotEmpty
                   ? addressController.selectedAddress.value

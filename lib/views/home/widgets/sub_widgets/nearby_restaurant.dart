@@ -39,6 +39,9 @@ class _NearbyRestaurantWidgetState extends State<NearbyRestaurantWidget> {
     final longitude = box.read("longitude");
     final latitude = box.read("latitude");
 
+    print("lattitude: ${latitude}");
+    print("longitude: ${longitude}");
+
     
 
     
@@ -52,15 +55,16 @@ class _NearbyRestaurantWidgetState extends State<NearbyRestaurantWidget> {
     double pricePerKm = 350.0;
     String paymentMethod = "Card";
     // final controller = Get.put(OrderController());
-    print(currentLocation!.latitude);
+    print("Current location latitude: ${currentLocation?.latitude}");
+
 
     DistanceTime? distanceTime;
     
       distanceTime = distanceCalculator.calculateDistanceTimePrice(
           widget.restaurant.coords.latitude,
           widget.restaurant.coords.longitude,
-          latitude == null ? currentLocation!.latitude : latitude,
-          longitude == null ? currentLocation!.longitude: longitude,
+          latitude ?? 8.455,
+           longitude ?? 4.55,
           speedKmPerHr,
           pricePerKm);
     
@@ -253,12 +257,14 @@ class _NearbyRestaurantWidgetState extends State<NearbyRestaurantWidget> {
   }
 
   Future _getCurrentLocation() async {
+    
     final controller = Get.put(UserLocationController());
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.bestForNavigation);
     LatLng currentLocation = LatLng(position.latitude, position.longitude);
     controller.setPosition(currentLocation);
     controller.getUserAddress(currentLocation);
+    
     
     
   }

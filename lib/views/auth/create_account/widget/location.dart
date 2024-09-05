@@ -56,7 +56,7 @@ class _LocationState extends State<Location> {
     }
   }
 
-  void _getPlaceDetails(String placeId) async {
+  Future _getPlaceDetails(String placeId) async {
     final url = Uri.parse(
         "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$googleApiKey");
     final response = await http.get(url);
@@ -76,12 +76,14 @@ class _LocationState extends State<Location> {
         }
       }
 
+      if (mounted) {
       setState(() {
         address = addressLine;
-        postalCode = postal_code;
+        postalCode = postal_code.isNotEmpty ? postal_code : 'N/A';
         latitude = lat;
         longitude = lng;
       });
+    }
 
       print(address);
       print("postal code: $postalCode");
@@ -214,8 +216,8 @@ class _LocationState extends State<Location> {
                                 ),
                               ],
                             ),
-                            onTap: () {
-                              _getPlaceDetails(_placeList[index]["place_id"]);
+                            onTap: () async{
+                             await _getPlaceDetails(_placeList[index]["place_id"]);
                               _selectedPlace.add(_placeList[index]);
 
                               var model = AddressModel(

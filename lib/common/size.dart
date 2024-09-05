@@ -5,7 +5,8 @@ String googleApiKey = 'AIzaSyCmPEJz8RGp0qdZnnV0A0Owq9NKh0hBFOo';
 double height = 1640.h;
 double width = 720.w;
 
-const String appBaseUrl = "http://localhost:4000";
+// const String appBaseUrl = "http://localhost:4000" ;
+const String appBaseUrl = "https://chopnowbackendrefixnew-production.up.railway.app" ;
 
 // 
 

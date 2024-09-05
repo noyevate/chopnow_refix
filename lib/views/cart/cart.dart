@@ -33,6 +33,7 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
     final controller = Get.put(LoginController());
 
     String? token = box.read('token');
+    print("the id: ${box.read('userId')}");
 
     if (token != null) {
       user = controller.getUserInfo();

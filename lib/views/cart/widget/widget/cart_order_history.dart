@@ -1,3 +1,4 @@
+import 'package:chopnow/common/cart_lottie.dart';
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/size.dart';
 import 'package:chopnow/hooks/fetch_order_history.dart.dart';
@@ -24,10 +25,7 @@ class CartOrderHistory extends HookWidget {
       width: width,
       color: Tcolor.BACKGROUND_Regaular,
       child: isLoading
-          ? SizedBox(
-              height: 20.h,
-              width: 20.w,
-              child: const CircularProgressIndicator())
+          ? Center(child: const CartLottie())
           : Padding(
               padding: EdgeInsets.only(top: 20),
               child: SizedBox(

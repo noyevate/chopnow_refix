@@ -4,10 +4,12 @@ import 'package:chopnow/common/custom_button.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
 import 'package:chopnow/common/size.dart';
 import 'package:chopnow/controllers/edit_profile_name.dart';
+import 'package:chopnow/controllers/profile_controller.dart';
 import 'package:chopnow/views/auth/widget/field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
 
 class NameProfileBottomSheet extends StatelessWidget {
@@ -15,12 +17,19 @@ class NameProfileBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    final iD = box.read("userId");
     final controller = Get.put(EditProfileName());
+    final profileController = Get.put(ProfileController());
     return Container(
       width: width,
       height: 1200.h,
+      decoration: BoxDecoration(
+        color: Tcolor.White,
+         borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r))
+      ),
       child: Padding(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -133,7 +142,17 @@ class NameProfileBottomSheet extends StatelessWidget {
               raduis: 100.r,
               btnWidth: width / 1,
               btnHeight: 96.sp,
+              onTap: () {
+                 profileController.changeName(iD, controller.firstNameController.text, controller.lastNameController.text);
+                 controller.firstNameController.text = "";
+                 controller.lastNameController.text = "";
+                 
+                 Get.back();
+
+                print(iD);
+              },
             ),
+            
           ],
         ),
       ),

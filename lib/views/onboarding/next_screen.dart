@@ -55,6 +55,7 @@ class _NextScreenState extends State<NextScreen> {
     return Scaffold(
       body: Stack(
         children: [
+          
           PageView(
             controller: _pageController,
             onPageChanged: _onPageChanged,
@@ -67,12 +68,12 @@ class _NextScreenState extends State<NextScreen> {
           ),
           Positioned(
             left: 32.w,
-            bottom: 105.h,
+            bottom: 70.h,
             child: PageIndicator(currentPage: _currentPage, pageCount: 3),
           ),
           Positioned(
             right: 50.w,
-            bottom: 70.h,
+            bottom: 40.h,
             child: CustomButton(
               title: "Get choppin’",
               btnWidth: 300.w,

@@ -2,6 +2,7 @@
 //
 //     final otpSucessModel = otpSucessModelFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 OtpSucessModel otpSucessModelFromJson(String str) => OtpSucessModel.fromJson(json.decode(str));
@@ -14,18 +15,14 @@ class OtpSucessModel {
     final String lastName;
     final String email;
     final String fcm;
-    final String password;
     final String pin;
     final dynamic otpExpires;
     final bool verification;
     final String phone;
     final bool phoneVerification;
     final String userType;
-    final DateTime updatedAt;
     final int v;
-    final String userToken;
-    final bool status;
-    final String message;
+    final String token;
 
     OtpSucessModel({
         required this.id,
@@ -33,18 +30,14 @@ class OtpSucessModel {
         required this.lastName,
         required this.email,
         required this.fcm,
-        required this.password,
         required this.pin,
         required this.otpExpires,
         required this.verification,
         required this.phone,
         required this.phoneVerification,
         required this.userType,
-        required this.updatedAt,
         required this.v,
-        required this.userToken,
-        required this.status,
-        required this.message,
+        required this.token,
     });
 
     factory OtpSucessModel.fromJson(Map<String, dynamic> json) => OtpSucessModel(
@@ -53,18 +46,14 @@ class OtpSucessModel {
         lastName: json["last_name"],
         email: json["email"],
         fcm: json["fcm"],
-        password: json["password"],
         pin: json["pin"],
         otpExpires: json["otpExpires"],
         verification: json["verification"],
         phone: json["phone"],
         phoneVerification: json["phoneVerification"],
         userType: json["userType"],
-        updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        userToken: json["userToken"],
-        status: json["status"],
-        message: json["message"],
+        token: json["token"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -73,17 +62,13 @@ class OtpSucessModel {
         "last_name": lastName,
         "email": email,
         "fcm": fcm,
-        "password": password,
         "pin": pin,
         "otpExpires": otpExpires,
         "verification": verification,
         "phone": phone,
         "phoneVerification": phoneVerification,
         "userType": userType,
-        "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
-        "userToken": userToken,
-        "status": status,
-        "message": message,
+        "token": token,
     };
 }

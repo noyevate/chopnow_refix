@@ -1,6 +1,7 @@
 
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
+import 'package:chopnow/views/profile/widget/faq.dart';
 import 'package:chopnow/views/profile/widget/profile_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -80,14 +81,18 @@ class HelpAndSupport extends StatelessWidget {
               ),
               SizedBox(height: 70.h),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => FAQPage(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ProfileTile(
                       title: "FAQs",
                       icon: HeroiconsOutline.questionMarkCircle,
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => FAQPage(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                      },
                     ),
                     Icon(
                       HeroiconsOutline.chevronRight,

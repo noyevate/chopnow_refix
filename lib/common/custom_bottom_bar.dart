@@ -72,53 +72,55 @@ class CustomBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(
-    BuildContext context, {
-    String? iconPath,
-    IconData? iconData,
-    required String label,
-    IconType? iconType,
-    required int index,
-    required VoidCallback onPressed,
-  }) {
-    assert(iconPath != null || iconData != null,
-        'Either iconPath or iconData must be provided');
-    assert(iconType != null || iconData != null,
-        'iconType must be provided if using iconPath');
+ Widget _buildNavItem(
+  BuildContext context, {
+  String? iconPath,
+  IconData? iconData,
+  required String label,
+  IconType? iconType,
+  required int index,
+  required VoidCallback onPressed,
+}) {
+  assert(iconPath != null || iconData != null,
+      'Either iconPath or iconData must be provided');
+  assert(iconType != null || iconData != null,
+      'iconType must be provided if using iconPath');
 
-    bool isSelected = selectedIndex == index;
-    Color itemColor = isSelected ? Tcolor.Primary : Tcolor.TEXT_Label;
+  bool isSelected = selectedIndex == index;
+  Color itemColor = isSelected ? Tcolor.Primary : Tcolor.TEXT_Label;
 
-    Widget iconWidget;
-    if (iconPath != null && iconType != null) {
-      switch (iconType) {
-        case IconType.svg:
-          iconWidget = SvgPicture.asset(
-            iconPath,
-            width: 24.w,
-            height: 24.h,
-            colorFilter: ColorFilter.mode(itemColor, BlendMode.srcIn),
-          );
-          break;
-        case IconType.image:
-          iconWidget = Image.asset(
-            iconPath,
-            width: 30.w,
-            height: 30.h,
-            color: itemColor,
-          );
-          break;
-      }
-    } else {
-      iconWidget = Icon(
-        iconData,
-        color: itemColor,
-        size: 30.sp,
-      );
+  Widget iconWidget;
+  if (iconPath != null && iconType != null) {
+    switch (iconType) {
+      case IconType.svg:
+        iconWidget = SvgPicture.asset(
+          iconPath,
+          width: 24.w,
+          height: 24.h,
+          colorFilter: ColorFilter.mode(itemColor, BlendMode.srcIn),
+        );
+        break;
+      case IconType.image:
+        iconWidget = Image.asset(
+          iconPath,
+          width: 30.w,
+          height: 30.h,
+          color: itemColor,
+        );
+        break;
     }
+  } else {
+    iconWidget = Icon(
+      iconData,
+      color: itemColor,
+      size: 30.sp,
+    );
+  }
 
-    return GestureDetector(
-      onTap: onPressed,
+  return GestureDetector(
+    onTap: onPressed,
+    child: Container(
+      width: 60.w,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -129,20 +131,35 @@ class CustomBottomNav extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.contain,
               child: iconWidget,
-              
             ),
           ),
-          const SizedBox(height: 4),
-          ReuseableText(
-            title: label,
-            style: TextStyle(
-              fontSize: 20.sp,
-              color: itemColor,
-              fontWeight: FontWeight.w600,
+          if (isSelected)
+            Container(
+              margin: EdgeInsets.only(top: 20.h), // Adds spacing between icon and dot
+              width: 8.w,
+              height: 8.h,
+              decoration: BoxDecoration(
+                color: Tcolor.Primary,
+                shape: BoxShape.circle,
+              ),
             ),
-          ),
+          if (!isSelected)
+            Padding(
+              padding: EdgeInsets.only(top: 4.h), // Adds spacing between icon and label
+              child: ReuseableText(
+                title: label,
+                style: TextStyle(
+                  fontSize: 20.sp,
+                  color: itemColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
+
+
 }

@@ -1,4 +1,5 @@
 
+import 'package:chopnow/common/cart_lottie.dart';
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
 import 'package:chopnow/common/size.dart';
@@ -16,12 +17,20 @@ class CurrentProfilePin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ChangeProfilePin());
-    return Container(
+    return Obx(() {
+      if(controller.isLoading) {
+        return CartLottie();
+      } else {
+        return Container(
       width: width,
       height: 1200.h,
+      decoration: BoxDecoration(
+        color: Tcolor.White,
+         borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r))
+      ),
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -90,7 +99,7 @@ class CurrentProfilePin extends StatelessWidget {
               Center(
                 child: PinPad(
                   onKeyPress: (value) => controller.handleKeyPress(value, context), // Pass context to handleKeyPress1
-                  onClear: controller.clearPin1,
+                  onClear: controller.clearPin,
                 ),
               ),
             ],
@@ -98,6 +107,8 @@ class CurrentProfilePin extends StatelessWidget {
         ),
       ),
     );
+      }
+  });
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/custom_button.dart';
+import 'package:chopnow/common/loading_lottie.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
 import 'package:chopnow/common/size.dart';
 import 'package:chopnow/controllers/checkout_controller.dart';
@@ -86,7 +87,12 @@ class ConfirmOrder extends StatelessWidget {
           color: Tcolor.White,
         ),
       ),
-      body: Container(
+      body: Obx(() {
+        if (orderController.isLoading) {
+          return const Center(child: LoadingLottie(),);
+        }
+
+        return Container(
         height: height,
         width: width,
         color: Tcolor.BACKGROUND_Regaular,
@@ -170,20 +176,20 @@ class ConfirmOrder extends StatelessWidget {
                     ),
                     OrderSummaryWidget(
                       title: 'Subtotal (${selectedItems.length + 1} items)',
-                      price: '$totalPrice',
+                      price: 'NGN $totalPrice',
                     ),
                     SizedBox(
                       height: 40.h,
                     ),
                     OrderSummaryWidget(
                         title: "Service fee",
-                        price: "${(totalPrice * 0.12).round()}"),
+                        price: "NGN ${(totalPrice * 0.12).round()}"),
                     SizedBox(
                       height: 40.h,
                     ),
                     OrderSummaryWidget(
                         title: "Delivery fee",
-                        price: "${estimatedDeliveryFee}"),
+                        price: "NGN ${estimatedDeliveryFee}"),
                     SizedBox(
                       height: 40.h,
                     ),
@@ -191,7 +197,7 @@ class ConfirmOrder extends StatelessWidget {
                         color: Tcolor.Text,
                         title: "Total",
                         price:
-                            "${estimatedDeliveryFee + totalPrice + (totalPrice * 0.12).round()}"),
+                            "NGN ${estimatedDeliveryFee + totalPrice + (totalPrice * 0.12).round()}"),
                   ],
                 ),
               ),
@@ -341,7 +347,8 @@ class ConfirmOrder extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      );
+      })
     );
   }
 }

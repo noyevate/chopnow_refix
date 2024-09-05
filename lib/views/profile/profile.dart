@@ -8,12 +8,16 @@ import 'package:chopnow/views/auth/login/login_page_view.dart';
 import 'package:chopnow/views/profile/widget/addresses.dart';
 import 'package:chopnow/views/profile/widget/delete_account.dart';
 import 'package:chopnow/views/profile/widget/help_and_support.dart';
+import 'package:chopnow/views/profile/widget/privacy_policies.dart';
 import 'package:chopnow/views/profile/widget/profile_details.dart';
+import 'package:chopnow/views/profile/widget/terms_of_use.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:heroicons_flutter/heroicons_flutter.dart';
+import 'package:chopnow/controllers/profile_controller.dart';
+
 
 import 'widget/profile_tile.dart';
 import 'widget/profile_user_widget.dart';
@@ -28,10 +32,9 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
     final box = GetStorage();
-    final firstName = box.read('first_name');
-    final lastName = box.read('last_name');
+    final profileController = Get.put(ProfileController());
     final phone = box.read('phone');
-  ("token is: ${box.read('token')}");
+  
     
 
     LoginResponsModel? user;
@@ -46,16 +49,17 @@ class ProfilePage extends StatelessWidget {
     if (token == null) {
       return const LoginPageView();
     }
+    print("user Id: ${box.read('userId')}");
     return Scaffold(
         body: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           ProfileUserWidget(
-            image: 'assets/img/bottombar_profile.png',
-            title: "${capitalizeFirstLetter(firstName)} ${capitalizeFirstLetter(lastName)}",
-            phone: "$phone",
-          ),
+           Obx(() => ProfileUserWidget(
+              image: 'assets/img/bottombar_profile.png',
+              title: "${capitalizeFirstLetter(profileController.firstName.value)} ${capitalizeFirstLetter(profileController.lastName.value)}",
+              phone: "${profileController.phone.value}",
+            )),
           SizedBox(height: 40.h),
           Padding(
             padding: EdgeInsets.only(left: 30.w, right: 30.w),
@@ -156,36 +160,50 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 40.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ProfileTile(
-                      title: 'Privacy policy',
-                      icon: HeroiconsOutline.documentText,
-                      onTap: () {},
-                    ),
-                    Icon(
-                      HeroiconsOutline.chevronRight,
-                      size: 32.sp,
-                      color: Tcolor.TEXT_Label,
-                    )
-                  ],
+                GestureDetector(
+                  onTap: () {
+                     Get.to(() => PrivacyPolicy(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ProfileTile(
+                        title: 'Privacy policy',
+                        icon: HeroiconsOutline.documentText,
+                        onTap: () {
+                          Get.to(() => PrivacyPolicy(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                        },
+                      ),
+                      Icon(
+                        HeroiconsOutline.chevronRight,
+                        size: 32.sp,
+                        color: Tcolor.TEXT_Label,
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(height: 40.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ProfileTile(
-                      title: 'Terms of use',
-                      icon: HeroiconsOutline.documentText,
-                      onTap: () {},
-                    ),
-                    Icon(
-                      HeroiconsOutline.chevronRight,
-                      size: 32.sp,
-                      color: Tcolor.TEXT_Label,
-                    )
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => TermsOfUse(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ProfileTile(
+                        title: 'Terms of use',
+                        icon: HeroiconsOutline.documentText,
+                        onTap: () {
+                          Get.to(() => TermsOfUse(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
+                        },
+                      ),
+                      Icon(
+                        HeroiconsOutline.chevronRight,
+                        size: 32.sp,
+                        color: Tcolor.TEXT_Label,
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(height: 110.h),
 

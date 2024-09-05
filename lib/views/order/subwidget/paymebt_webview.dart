@@ -1,5 +1,5 @@
-
 import 'package:chopnow/common/color_extension.dart';
+import 'package:chopnow/common/loading_lottie.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
 import 'package:chopnow/controllers/checkout_controller.dart';
 import 'package:chopnow/controllers/order_controller.dart';
@@ -15,11 +15,16 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 class PaymentWebViewPage extends StatefulWidget {
-  const PaymentWebViewPage({super.key, required this.paymentLink, required this.orderData, required this.item,});
+  const PaymentWebViewPage({
+    super.key,
+    required this.paymentLink,
+    required this.orderData,
+    required this.item,
+  });
+
   final String paymentLink;
   final String orderData;
   final OrderRequest item;
-  
 
   @override
   State<PaymentWebViewPage> createState() => _PaymentWebViewPageState();
@@ -29,6 +34,8 @@ class _PaymentWebViewPageState extends State<PaymentWebViewPage> {
   late final WebViewController _controller;
   final OrderController orderController = Get.find<OrderController>();
   final CheckoutController checkoutController = Get.put(CheckoutController());
+
+  bool isLoading = true; // Add a loading state
 
   @override
   void initState() {
@@ -49,25 +56,42 @@ class _PaymentWebViewPageState extends State<PaymentWebViewPage> {
 
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x0000000000000000))
-      ..setNavigationDelegate(NavigationDelegate(
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (String url) {
+            setState(() {
+              isLoading = true; // Start loading animation
+            });
+          },
           onPageFinished: (String url) {
+            setState(() {
+              isLoading = false; // Stop loading animation
+            });
+
             // Check if the URL indicates success or failure
             if (url.contains('success')) {
               orderController.addToOrder(widget.orderData, widget.item);
               checkoutController.noteToRider.text = "";
               checkoutController.noToRestaurant.text = "";
-              
               checkoutController.fullname.text = "";
               checkoutController.phone.text = "";
-              
-              Get.off(() => const CompletedPayment(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 800));
 
+              Get.off(
+                () => const CompletedPayment(),
+                transition: Transition.fadeIn,
+                duration: const Duration(milliseconds: 800),
+              );
             } else if (url.contains('cancel')) {
-              Get.to(() => const MainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 800));
+              Get.to(
+                () => const MainScreen(),
+                transition: Transition.fadeIn,
+                duration: const Duration(milliseconds: 800),
+              );
             }
           },
-      ),)
+        ),
+      )
       ..addJavaScriptChannel(
         "Toaster",
         onMessageReceived: (JavaScriptMessage message) {
@@ -87,7 +111,6 @@ class _PaymentWebViewPageState extends State<PaymentWebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.paymentLink);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Tcolor.White,
@@ -105,13 +128,15 @@ class _PaymentWebViewPageState extends State<PaymentWebViewPage> {
               fontSize: 28.sp),
         ),
       ),
-      body: WebViewWidget(
-        controller: _controller,
+      body: Stack(
+        children: [
+          WebViewWidget(controller: _controller),
+          if (isLoading) // Show Lottie animation while loading
+            Center(
+              child: LoadingLottie()
+            ),
+        ],
       ),
     );
   }
-// }
 }
-
-
-

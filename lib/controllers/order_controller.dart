@@ -1,6 +1,4 @@
-
 import 'dart:convert';
-
 
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/size.dart';
@@ -12,19 +10,18 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-class OrderController extends GetxController{
+class OrderController extends GetxController {
   final box = GetStorage();
   // ignore: prefer_final_fields
   RxBool _isLoading = false.obs;
 
-  bool get isLoading =>_isLoading.value;
+  bool get isLoading => _isLoading.value;
 
   set setLoading(bool value) {
     _isLoading.value = value;
   }
 
-
-   Future<void> addToOrder(String data, OrderRequest item ) async{
+  Future<void> addToOrder(String data, OrderRequest item) async {
     setLoading = true;
     String accessToken = box.read("token");
 
@@ -44,23 +41,20 @@ class OrderController extends GetxController{
             backgroundColor: Tcolor.Primary,
             icon: const Icon(Ionicons.fast_food_outline));
 
-          // Get.to(() => const PaymentPage());
-          
+        // Get.to(() => const PaymentPage());
       } else {
         var error = apiErrorFromJson(response.body);
         Get.snackbar("Creating Order Unsuccessful", error.message,
             colorText: Tcolor.White,
             duration: const Duration(seconds: 3),
-            
             backgroundColor: Tcolor.ERROR_Light_1,
             icon: const Icon(Icons.error_outline));
-            print(error.message);
+        print(error.message);
       }
     } catch (e) {
       debugPrint(e.toString());
     } finally {
       setLoading = false;
-      
     }
   }
 
@@ -69,6 +63,7 @@ class OrderController extends GetxController{
     required String currency,
     required String email,
   }) async {
+    setLoading = true;
     const String url =
         'https://flutterwave-test-production-d203.up.railway.app/payment';
     final Map<String, dynamic> body = {
@@ -92,6 +87,8 @@ class OrderController extends GetxController{
         final paymentLink = responseData['data']
             ['link']; // Adjust this according to your response structure
 
+        setLoading = false;
+
         return paymentLink;
         // Get.to(() => PaymentWebViewPage(paymentLink: paymentLink));
         // Redirect user to payment link
@@ -101,13 +98,15 @@ class OrderController extends GetxController{
         // Handle errors
         Get.snackbar(
             'Error', 'Payment failed with status: ${response.statusCode}');
+        setLoading = false;
         print(response.statusCode);
         return null;
       }
     } catch (e) {
       // Handle exceptions
       Get.snackbar('Error', 'An error occurred: $e');
-      print("   catch error: ${e.toString()}");
+      setLoading = false;
+      print("catch error: ${e.toString()}");
     }
     return null;
   }

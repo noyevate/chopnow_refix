@@ -102,7 +102,7 @@ class FoodController extends GetxController {
     for (var additive in food.additive) {
       for (var option in additive.options) {
         if ("${additive.title}-${option.name}" == key) {
-          return (additiveCounts[key] ?? 0) * option.price;
+          return (additiveCounts[key] ?? 1) * option.price;
         }
       }
     }

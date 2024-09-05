@@ -5,6 +5,7 @@ import 'package:chopnow/common/reusable_text_widget.dart';
 import 'package:chopnow/common/row_icon.dart';
 import 'package:chopnow/controllers/cart_controller.dart';
 import 'package:chopnow/controllers/food_controller.dart';
+import 'package:chopnow/models/cart_request.dart';
 import 'package:chopnow/models/food_model.dart';
 import 'package:chopnow/views/order/widget/checkout_page.dart';
 
@@ -129,7 +130,7 @@ class _FoodPageState extends State<FoodPage> {
                       ),
                       SizedBox(height: 15.h),
                       ReuseableText(
-                        title: "\u20A6 ${widget.food!.price.toString()}",
+                        title: "NGN ${widget.food!.price.toString()}",
                         style: TextStyle(
                           color: Tcolor.Text,
                           fontWeight: FontWeight.w400,
@@ -185,71 +186,77 @@ class _FoodPageState extends State<FoodPage> {
                       ),
                       SizedBox(height: 30.h),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RowIcon(
-                            title: widget.food!.title,
-                            style: TextStyle(
-                              fontSize: 34.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Tcolor.Text,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  controller.decrement();
-                                },
-                                child: Icon(
-                                  AntDesign.minuscircleo,
-                                  size: 36.sp,
-                                  color: Tcolor.TEXT_Placeholder,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                                child: Obx(
-                                  () => ReuseableText(
-                                    title: "${controller.count.value}",
-                                    style: TextStyle(
-                                      fontSize: 30.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Tcolor.TEXT_Body,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  controller.increment();
-                                },
-                                child: Icon(
-                                  AntDesign.pluscircleo,
-                                  size: 36.sp,
-                                  color: Tcolor.TEXT_Body,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 80.w),
-                                child: Obx(
-                                  () => ReuseableText(
-                                    title:
-                                        "\u20A6 ${widget.food!.price * controller.count.value}",
-                                    style: TextStyle(
-                                      color: Tcolor.TEXT_Label,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 28.sp,
-                                      decoration: TextDecoration.none,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    RowIcon(
+      title: widget.food!.title,
+      style: TextStyle(
+        fontSize: 34.sp,
+        fontWeight: FontWeight.w400,
+        color: Tcolor.Text,
+      ),
+    ),
+    
+    SizedBox(
+      width: 300.w, // Adjust to fit all controls
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: () {
+              controller.decrement();
+            },
+            child: Icon(
+              AntDesign.minuscircleo,
+              size: 36.sp,
+              color: Tcolor.TEXT_Placeholder,
+            ),
+          ),
+          SizedBox(
+            width: 60.w, // Fixed width for the count display area
+            child: Center(
+              child: Obx(
+                () => ReuseableText(
+                  title: "${controller.count.value}",
+                  style: TextStyle(
+                    fontSize: 30.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Tcolor.TEXT_Body,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              controller.increment();
+            },
+            child: Icon(
+              AntDesign.pluscircleo,
+              size: 36.sp,
+              color: Tcolor.TEXT_Body,
+            ),
+          ),
+          Spacer(), // This keeps the price aligned to the right
+          Obx(
+            () => ReuseableText(
+              title: "NGN ${widget.food!.price * controller.count.value}",
+              style: TextStyle(
+                color: Tcolor.TEXT_Label,
+                fontWeight: FontWeight.w400,
+                fontSize: 28.sp,
+                decoration: TextDecoration.none,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  ],
+),
+
+
                       SizedBox(height: 25.h),
                       Divider(
                         thickness: 2.w,
@@ -398,126 +405,126 @@ class _FoodPageState extends State<FoodPage> {
                                                   ),
                                                   if (index !=
                                                       0) // Hide increment and decrement options for the first object
-                                                    Row(
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: _isChecked[option
-                                                                      .name] ==
-                                                                  true
-                                                              ? () {
-                                                                  controller
-                                                                      .decrementOption(
-                                                                          "${additive.title}-${option.name}");
-                                                                }
-                                                              : null,
-                                                          child: Icon(
-                                                            AntDesign
-                                                                .minuscircleo,
-                                                            size: 36.sp,
-                                                            color: _isChecked[option
+                                                    SizedBox(
+                                                      width: 300.w,
+                                                      child: Row(
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: _isChecked[option
                                                                         .name] ==
                                                                     true
-                                                                ? Tcolor
-                                                                    .TEXT_Placeholder
-                                                                : Tcolor.TEXT_Placeholder
-                                                                    .withOpacity(
-                                                                        0.5),
+                                                                ? () {
+                                                                    controller
+                                                                        .decrementOption(
+                                                                            "${additive.title}-${option.name}");
+                                                                  }
+                                                                : null,
+                                                            child: Icon(
+                                                              AntDesign
+                                                                  .minuscircleo,
+                                                              size: 36.sp,
+                                                              color: _isChecked[option
+                                                                          .name] ==
+                                                                      true
+                                                                  ? Tcolor
+                                                                      .TEXT_Placeholder
+                                                                  : Tcolor.TEXT_Placeholder
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      25.w),
-                                                          child: Obx(
-                                                            () => ReuseableText(
-                                                              title:
-                                                                  "${controller.getOptionCount("${additive.title}-${option.name}")}",
-                                                              style: TextStyle(
-                                                                fontSize: 30.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Tcolor
-                                                                    .TEXT_Body,
+                                                          SizedBox(
+                                                            width: 60.w,
+                                                            child: Center(
+                                                              child: Obx(
+                                                                () => ReuseableText(
+                                                                  title:
+                                                                      "${controller.getOptionCount("${additive.title}-${option.name}")}",
+                                                                  style: TextStyle(
+                                                                    fontSize: 30.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    color: Tcolor
+                                                                        .TEXT_Body,
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: _isChecked[option
-                                                                      .name] ==
-                                                                  true
-                                                              ? () {
-                                                                  controller
-                                                                      .incrementOption(
-                                                                          "${additive.title}-${option.name}");
-                                                                }
-                                                              : null,
-                                                          child: Icon(
-                                                            AntDesign
-                                                                .pluscircleo,
-                                                            size: 36.sp,
-                                                            color: _isChecked[option
+                                                          GestureDetector(
+                                                            onTap: _isChecked[option
                                                                         .name] ==
                                                                     true
-                                                                ? Tcolor
-                                                                    .TEXT_Body
-                                                                : Tcolor.TEXT_Placeholder
-                                                                    .withOpacity(
-                                                                        0.5),
+                                                                ? () {
+                                                                    controller
+                                                                        .incrementOption(
+                                                                            "${additive.title}-${option.name}");
+                                                                  }
+                                                                : null,
+                                                            child: Icon(
+                                                              AntDesign
+                                                                  .pluscircleo,
+                                                              size: 36.sp,
+                                                              color: _isChecked[option
+                                                                          .name] ==
+                                                                      true
+                                                                  ? Tcolor
+                                                                      .TEXT_Body
+                                                                  : Tcolor.TEXT_Placeholder
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  if (index != 0)
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 80.w),
-                                                      child: _isChecked[option
-                                                                  .name] ==
-                                                              true
-                                                          ? Obx(
-                                                              () =>
-                                                                  ReuseableText(
-                                                                title:
-                                                                    "\u20A6 ${controller.getOptionTotalPrice("${additive.title}-${option.name}")}",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Tcolor
-                                                                      .TEXT_Label,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  fontSize:
-                                                                      28.sp,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                ),
-                                                              ),
-                                                            )
-                                                          : ReuseableText(
+                                                          Spacer(),
+                                                          if (index != 0)
+                                                    _isChecked[option
+                                                                .name] ==
+                                                            true
+                                                        ? Obx(
+                                                            () =>
+                                                                ReuseableText(
                                                               title:
-                                                                  "\u20A6 ${option.price}",
-                                                              style: TextStyle(
+                                                                  "NGN ${controller.getOptionTotalPrice("${additive.title}-${option.name}")}",
+                                                              style:
+                                                                  TextStyle(
                                                                 color: Tcolor
                                                                     .TEXT_Label,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400,
-                                                                fontSize: 28.sp,
+                                                                fontSize:
+                                                                    28.sp,
                                                                 decoration:
                                                                     TextDecoration
                                                                         .none,
                                                               ),
                                                             ),
-                                                    ),
+                                                          )
+                                                        : ReuseableText(
+                                                            title:
+                                                                "NGN ${option.price}",
+                                                            style: TextStyle(
+                                                              color: Tcolor
+                                                                  .TEXT_Label,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 28.sp,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .none,
+                                                            ),
+                                                          ),
                                                   // if(index == 0)
-                                                  if (index == 0)
+                                                  
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    if (index == 0)
                                                     ReuseableText(
                                                       title:
-                                                          "\u20A6 ${option.price.toString()}",
+                                                          "NGN ${option.price.toString()}",
                                                       style: TextStyle(
                                                         fontSize: 28.sp,
                                                         fontWeight:
@@ -526,6 +533,7 @@ class _FoodPageState extends State<FoodPage> {
                                                             Tcolor.TEXT_Label,
                                                       ),
                                                     ),
+                                                  
                                                 ],
                                               ),
                                             ],
@@ -581,10 +589,14 @@ class _FoodPageState extends State<FoodPage> {
                                   packCount: item.packCount),
                             )
                             .toList(),
+                            
                       );
+                      // Print for debugging
                       print("cart tp:${cartRequest.totalPrice}, ${controller.totalPrice}");
 
+
                       String cartRequest1 = cart.cartRequestToJson(cartRequest);
+                      print("cart request sent to the backend: ${cartRequest1}");
 
                       cartController.addToCart(cartRequest1);
 
@@ -618,7 +630,7 @@ class _FoodPageState extends State<FoodPage> {
                         child: Obx(
                           () => ReuseableText(
                             title:
-                                "\u20A6 ${controller.totalPrice} | Add to cart ",
+                                "NGN ${controller.totalPrice} | Add to cart ",
                             style: TextStyle(
                               color: Tcolor.Text,
                               fontWeight: FontWeight.w500,

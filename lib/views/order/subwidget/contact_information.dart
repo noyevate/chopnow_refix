@@ -17,7 +17,12 @@ class ContactInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     final CheckoutController controller = Get.put(CheckoutController());
     return Container(
+      padding: EdgeInsets.only(left: 20.w, right: 20.w),
       height: 1000.h,
+      decoration: BoxDecoration(
+        color: Tcolor.White,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r))
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

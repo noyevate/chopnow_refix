@@ -1,5 +1,6 @@
 
 import 'package:chopnow/common/color_extension.dart';
+import 'package:chopnow/common/loading_lottie.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
 import 'package:chopnow/controllers/login_controller.dart';
 import 'package:chopnow/views/auth/reset_pin/forgot_pin_page_view.dart';
@@ -19,62 +20,83 @@ class LoginPinPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Obx(() {
+        return Stack(
           children: [
-             SizedBox(height: 40.h), // Space at the top
-            ReuseableText(
-              title: "Login PIN",
-              style: TextStyle(
-                fontSize: 40.sp,
-                fontWeight: FontWeight.w600,
-                color: Tcolor.Text,
-              ),
-            ),
-            SizedBox(height: 20.h),
-            ReuseableText(
-              title:"Enter your PIN to login to your account.",
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w400,
-                color: Tcolor.Text_Secondary,
-              ),
-            ),
-            SizedBox(height: 80.h), // Space between text and icon
-            Center(
-              child: SvgPicture.asset(
-                "assets/img/lock_icon.svg", // Replace with your lock icon asset
-                height: 75.h,
-                width: 75.h,
-              ),
-            ),
-            SizedBox(height: 50.h), // Space between icon and PIN input
-            Center(
-              child: Obx(() => PinDots(pinLength: controller.pin.value.length)),
-            ),
-            SizedBox(height: 80.h),
-            Center(
-              child: PinPad(
-                onKeyPress: controller.handleKeyPress,
-                onClear: controller.clearPin,
-              ),
-            ),
-            SizedBox(height: 100.h), // Space at the bottom
+            SingleChildScrollView(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 40.h), // Space at the top
+                  ReuseableText(
+                    title: "Login PIN",
+                    style: TextStyle(
+                      fontSize: 40.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Tcolor.Text,
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  ReuseableText(
+                    title: "Enter your PIN to login to your account.",
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Tcolor.Text_Secondary,
+                    ),
+                  ),
+                  SizedBox(height: 80.h), // Space between text and icon
+                  Center(
+                    child: SvgPicture.asset(
+                      "assets/img/lock_icon.svg", // Replace with your lock icon asset
+                      height: 75.h,
+                      width: 75.h,
+                    ),
+                  ),
+                  SizedBox(height: 50.h), // Space between icon and PIN input
+                  Center(
+                    child: Obx(() => PinDots(pinLength: controller.pin.value.length)),
+                  ),
+                  SizedBox(height: 80.h),
+                  Center(
+                    child: PinPad(
+                      onKeyPress: controller.handleKeyPress,
+                      onClear: controller.clearPin,
+                    ),
+                  ),
+                  SizedBox(height: 100.h), // Space at the bottom
 
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: GestureDetector(
-                onTap: () {
-                  Get.to(() => const ForgotPinPageView(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
-                },
-                child: ReuseableText(title: "Forgot PIN?", style: TextStyle(color: Tcolor.PRIMARY_S4, fontSize: 32.sp, fontWeight: FontWeight.w500)),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => const ForgotPinPageView(),
+                            transition: Transition.fadeIn,
+                            duration: const Duration(milliseconds: 700));
+                      },
+                      child: ReuseableText(
+                        title: "Forgot PIN?",
+                        style: TextStyle(
+                          color: Tcolor.PRIMARY_S4,
+                          fontSize: 32.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            )
+            ),
+
+            // Lottie animation overlay for loading state
+            if (controller.isLoading)
+              const Center(
+                child: LoadingLottie()
+              ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

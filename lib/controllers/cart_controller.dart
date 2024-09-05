@@ -43,9 +43,28 @@ class CartController extends GetxController {
 
     try {
       var response = await http.post(url, headers: headers, body: cart);
+      print("Server Response: ${response.body}");
+      print("cart Status code: ${response.statusCode}");
+      if (response.statusCode == 200) {
+        Get.snackbar('Food Added to cart', 'This Food Already exist in your cart.',
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Tcolor.BACKGROUND_Regaular,
+            duration: const Duration(seconds: 5),
+            colorText: Tcolor.TEXT_Body,
+            icon: Icon(
+              HeroiconsOutline.shoppingCart,
+              size: 32.sp,
+              color: Tcolor.Primary_New,
+            ),
+        );
+      }
+      
 
       if (response.statusCode == 201) {
         setLoading = false;
+        print("cart Status code: ${response.statusCode}");
+
+
 
         Get.snackbar('Food Added to cart', 'Enjoy the awesome Experience.',
             snackPosition: SnackPosition.TOP,

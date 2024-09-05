@@ -52,12 +52,17 @@ class _CustomAppBarState extends State<CustomAppBar> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 50.r,
-                child: Image.asset(
-                  "assets/img/bottombar_profile.png",
-                  height: 100.h,
-                  width: 100.w,
+              SizedBox(
+                height: 70.h,
+                width: 70.w,
+                child: CircleAvatar(
+                  
+                  radius: 50.r,
+                  child: Image.asset(
+                    "assets/img/bottombar_profile.png",
+                    height: 70.h,
+                    width: 70.w,
+                  ),
                 ),
               ),
               SizedBox(width: 10.w),

@@ -55,7 +55,7 @@ class ItemsAndPrice extends StatelessWidget {
                 ),
                 SizedBox(height: 10.h),
                 ReuseableText(
-                  title: "${item.price}",
+                  title: "NGN ${item.price}",
                   style: TextStyle(
                     fontSize: 28.sp,
                     fontWeight: FontWeight.w400,

@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Get.off(() => const NextScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 700));
     });
   }
@@ -27,13 +27,14 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Container(
           height: 150.h,
-          width: 150.w,
+          width: 300.w,
           decoration: BoxDecoration(
             
-            color: Tcolor.SECONDARY_S4,
+            color: Colors.black,
             borderRadius: BorderRadius.circular(100.r)
 
           ),
+          child: Center(child: Image.asset("assets/img/chopnow_logo.png", height: 100.h, width: 200.w,)),
         ),
       ),
     );

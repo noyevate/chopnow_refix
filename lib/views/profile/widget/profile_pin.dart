@@ -18,7 +18,11 @@ class EditProfilePin extends StatelessWidget {
     final controller = Get.put(ChangeProfilePin());
     return Container(
       width: width,
-      height: 1237.h,
+      height: 1200.h,
+      decoration: BoxDecoration(
+        color: Tcolor.White,
+         borderRadius: BorderRadius.only(topLeft: Radius.circular(25.r), topRight: Radius.circular(25.r))
+      ),
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 30.h),

@@ -1,3 +1,4 @@
+import 'package:chopnow/common/cart_lottie.dart';
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/size.dart';
 import 'package:chopnow/hooks/fetch_cart.dart';
@@ -25,10 +26,7 @@ class Carts extends HookWidget {
     return Container(
       color: Tcolor.BACKGROUND_Regaular,
       child: isLoading
-          ? SizedBox(
-              height: 20.h,
-              width: 20.w,
-              child: const CircularProgressIndicator())
+          ? Center(child: const CartLottie())
           : Padding(
               padding: EdgeInsets.only(left: 30.w, right: 30.w),
               child: SizedBox(

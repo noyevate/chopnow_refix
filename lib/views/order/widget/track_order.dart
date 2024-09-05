@@ -265,7 +265,7 @@ class ProcessingOrder extends HookWidget {
                                 ),
                               ),
                               ReuseableText(
-                                title: order.orderTotal.toString(),
+                                title: "NGN ${order.orderTotal.toString()}",
                                 style: TextStyle(
                                   fontSize: 28.sp,
                                   fontWeight: FontWeight.w400,
@@ -364,22 +364,22 @@ class ProcessingOrder extends HookWidget {
                     ),
                   TextnPriceWidget(
                     title: 'Subtotal',
-                    title1: "${order.orderTotal}",
+                    title1: "NGN ${order.orderTotal * order.orderItems[0].numberOfPack}",
                   ),
                   SizedBox(height: 30.h),
                   TextnPriceWidget(
                     title: 'Service fee',
-                    title1: "${((order.orderTotal) * 0.12).round()}",
+                    title1: "NGN ${((order.orderTotal) * 0.12).round()}",
                   ),
                   SizedBox(height: 30.h),
                   TextnPriceWidget(
                     title: 'Delivery Fee',
-                    title1: "${order.deliveryFee}",
+                    title1: "NGN ${order.deliveryFee}",
                   ),
                   SizedBox(height: 30.h),
                   TextnPriceWidget(
                     title: 'Total',
-                    title1: "${order.grandTotal}",
+                    title1: "NGN ${order.grandTotal}",
                     fontWeight: FontWeight.w500,
                     fontWeight2: FontWeight.w500,
                     fontSize1: 32.sp,

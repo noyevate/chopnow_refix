@@ -263,7 +263,7 @@ class CheckoutPage extends HookWidget {
                           ),
                           SizedBox(height: 10.h),
                           ReuseableText(
-                            title: "${selectedItems[0].foodPrice}",
+                            title: "NGN ${selectedItems[0].foodPrice}",
                             style: TextStyle(
                               fontSize: 24.sp,
                               fontWeight: FontWeight.w400,
@@ -274,7 +274,7 @@ class CheckoutPage extends HookWidget {
                           ItemsAndPrice(selectedItems: selectedItems),
                           SizedBox(height: 20.h),
                           ReuseableText(
-                            title: 'Total: ${_calculateTotalPrice()}',
+                            title: 'Total: NGN ${_calculateTotalPrice()}',
                             style: TextStyle(
                               fontSize: 28.sp,
                               fontWeight: FontWeight.bold,
@@ -445,7 +445,7 @@ class CheckoutPage extends HookWidget {
                         ),
                         ReuseableText(
                           title:
-                              "\u20A6 ${_calculateTotalPrice() * packs.value.length} ",
+                              "NGN ${_calculateTotalPrice() * packs.value.length} ",
                           style: TextStyle(
                             color: Tcolor.Text,
                             fontWeight: FontWeight.w500,

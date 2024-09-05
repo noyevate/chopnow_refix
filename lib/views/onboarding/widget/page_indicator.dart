@@ -19,15 +19,15 @@ class PageIndicator extends StatelessWidget {
 
     if (currentPage == 0) {
       // Page 0: Last two dots should be Tcolor.Primary
-      fillColor = index == currentPage ? Tcolor.SECONDARY_S4 : (index >= pageCount - 2 ? Tcolor.Primary : Tcolor.SECONDARY_S4);
+      fillColor = index == currentPage ? Tcolor.White : (index >= pageCount - 2 ? Tcolor.Primary : Tcolor.SECONDARY_S4);
       borderColor = Tcolor.Primary;
     } else if (currentPage == 1) {
       // Page 1: First and last dots should be Tcolor.SECONDARY_S4
-      fillColor = index == currentPage ? Tcolor.Primary : (index == 0 || index == pageCount - 1 ? Tcolor.SECONDARY_Button : Tcolor.Primary);
+      fillColor = index == currentPage ? Tcolor.White : (index == 0 || index == pageCount - 1 ? Tcolor.SECONDARY_Button : Tcolor.Primary);
       borderColor = Tcolor.SECONDARY_Button;
     } else if (currentPage == 2) {
       // Page 2: First two dots should be Tcolor.Primary
-      fillColor = index == currentPage ? Tcolor.SECONDARY_S4 : (index < 2 ? Tcolor.Primary : Tcolor.SECONDARY_S4);
+      fillColor = index == currentPage ? Tcolor.White : (index < 2 ? Tcolor.Primary : Tcolor.SECONDARY_S4);
       borderColor = Tcolor.Primary;
     } else {
       // Default: Use SECONDARY_S4 for all dots

@@ -1,11 +1,14 @@
 
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
+import 'package:chopnow/models/distance_time.dart';
 import 'package:chopnow/models/restaurant_model.dart';
+import 'package:chopnow/services/distance.dart';
 import 'package:chopnow/views/restaurant/restaurant_page_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class RestaurantWidget extends StatelessWidget {
   const RestaurantWidget({
@@ -18,6 +21,44 @@ class RestaurantWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
+    final longitude = box.read("longitude");
+    final latitude = box.read("latitude");
+
+    print("lattitude: ${latitude}");
+    print("longitude: ${longitude}");
+
+    
+
+    
+
+    
+
+    final distanceCalculator = Distance();
+
+    // Dummy values for speed and price per km
+    double speedKmPerHr = 20.0;
+    double pricePerKm = 350.0;
+    String paymentMethod = "Card";
+    // final controller = Get.put(OrderController());
+    // print("Current location latitude: ${currentLocation?.latitude}");
+
+
+    DistanceTime? distanceTime;
+    
+      distanceTime = distanceCalculator.calculateDistanceTimePrice(
+          restaurant.coords.latitude,
+          restaurant.coords.longitude,
+          latitude ?? 8.455,
+           longitude ?? 4.55,
+          speedKmPerHr,
+          pricePerKm);
+
+
+
+
+
+
     return GestureDetector(
       onTap: () {
         Get.to(() =>  RestaurantPageTest(restaurant: restaurant,));

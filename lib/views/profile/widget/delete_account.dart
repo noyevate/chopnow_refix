@@ -1,11 +1,13 @@
 
+import 'package:chopnow/common/cart_lottie.dart';
 import 'package:chopnow/common/circle.dart';
 import 'package:chopnow/common/color_extension.dart';
 import 'package:chopnow/common/custom_button.dart';
 import 'package:chopnow/common/reusable_text_widget.dart';
 import 'package:chopnow/common/size.dart';
+import 'package:chopnow/controllers/delete_account_controller.dart';
+import 'package:chopnow/controllers/profile_controller.dart';
 import 'package:chopnow/views/profile/widget/delete_account_pin.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,10 +19,15 @@ class DeleteAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(DeleteAccountController());
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(10.h), child: Container()),
-      body: SingleChildScrollView(
+      body: Obx(() {
+        if(controller.isLoading){
+          return CartLottie();
+        }else{
+          return SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 30.w, right: 30.w),
           child: Column(
@@ -376,7 +383,9 @@ class DeleteAccount extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      );
+        }
+      })
     );
   }
 }

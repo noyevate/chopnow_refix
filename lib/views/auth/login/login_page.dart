@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
                 children: [
                   Container(
                     width: 150.w,
-                    height: 115.h,
+                    height: 110.h,
                     padding: EdgeInsets.symmetric(horizontal: 8.w),
                     decoration: BoxDecoration(
                       border: Border.all(color: Tcolor.BACKGROUND_Regaular),
